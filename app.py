@@ -8,30 +8,38 @@ from sklearn.metrics import accuracy_score
 import streamlit as st
 
 
-dataset_path = "https://frenzy86.s3.eu-west-2.amazonaws.com/fav/iris.data"
 
-df = pd.read_csv(dataset_path, header=None)
-df.columns = ['sepal length', 'sepal width',
-              'petal length', 'petal width', 'class']
+def main():
 
+    dataset_path = "https://frenzy86.s3.eu-west-2.amazonaws.com/fav/iris.data"
 
-X = df.drop(["class"], axis=1)
-y = df["class"]
-
-
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.33, random_state=667)
-
-model = LogisticRegression()
-model.fit(X_train, y_train)
-
-y_pred = model.predict(X_test)
+    df = pd.read_csv(dataset_path, header=None)
+    df.columns = ['sepal length', 'sepal width',
+                'petal length', 'petal width', 'class']
 
 
-accuracy_score(y_test, y_pred)
+    X = df.drop(["class"], axis=1) #asse y = 1 ; asse x = 0
+    y = df["class"]
 
-fig = plt.figure()
-plt.scatter(X_test, y_test)
-plt.plot(X_test, y_pred, '-r')
-plt.axis([0, 10, 0, 10])
-st.pyplot(fig)
+
+    X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.33, random_state=667) 
+
+    model = LogisticRegression()
+    model.fit(X_train, y_train)
+
+    y_pred = model.predict(X_test)
+
+    print(accuracy_score(y_test, y_pred))
+
+
+
+    fig = plt.figure()
+    plt.scatter(X_test, y_test)
+    plt.plot(X_test, y_pred, '-r')
+    plt.axis([0, 10, 0, 200])
+    st.pyplot(fig)
+
+
+if __name__ == '__main__':
+    main()
