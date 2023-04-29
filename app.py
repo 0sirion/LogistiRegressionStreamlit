@@ -36,11 +36,15 @@ def main():
     result_df = pd.DataFrame({"y_previste": y_pred ,"y_reali": y_test})
     result_df.reset_index()
     
+    length = y_pred.shape[0]
+    X = np.linspace(0,length,length)
+
     fig = plt.figure()
-    plt.figure(figsize=(20, 12))
-    plt.plot(X, y_test, label="valori reali")
-    plt.plot(X, y_pred, label="valori predetti")
+    plt.figure(figsize=(10, 7))
+    plt.plot(X_test, y_test, label="valori reali")
+    plt.plot(X_test, y_pred, label="valori predetti")
     plt.legend(loc=2);
+    st.pyplot(fig)
     
 
 
