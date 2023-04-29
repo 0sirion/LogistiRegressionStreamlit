@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
-# import streamlit as st
+import streamlit as st
 
 
 
@@ -33,12 +33,15 @@ def main():
     print(accuracy_score(y_test, y_pred))
 
 
-
+    result_df = pd.DataFrame({"y_previste": y_pred ,"y_reali": y_test})
+    result_df.reset_index()
+    
     fig = plt.figure()
-    plt.scatter(X_test, y_test)
-    plt.plot(X_test, y_test, '-r')
-    plt.axis([0, 10, 0, 200])
-    # st.pyplot(fig)
+    plt.figure(figsize=(20, 12))
+    plt.plot(X, y_test, label="valori reali")
+    plt.plot(X, y_pred, label="valori predetti")
+    plt.legend(loc=2);
+    
 
 
 if __name__ == '__main__':
